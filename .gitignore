@@ -5,3 +5,5 @@
 /raw_data/swb_sph/
 /raw_data/swb_ms98_transcriptions/
 /data/
+.DS_Store
+__pycache__/

@@ -32,9 +32,9 @@ Once the environment is ready, you can
   The frame-level disfluency predictions will be printed to the .csv files. 
 
 3. Look for disfluencies with all available models in all .wav files in a given folder
-  3.1 - Make ```run.sh``` executable:
+   - Make ```run.sh``` executable:
    ````chmod +x run.sh````
-  3.2  - Run the script:
+   - Run the script:
     ````run.sh demo_data````
 
 # Citation 

@@ -19,12 +19,12 @@ labels = ['FP', 'RP', 'RV', 'RS', 'PW']
 def run_asr(audio_file, device):
 
     # Load audio file and resample to 16 kHz
-    audio, orgnl_sr = torchaudio.load(audio_file)
+    audio, orgnl_sr = torchaudio.load(audio_file, format='wav')
     audio_rs = torchaudio.functional.resample(audio, orgnl_sr, 16000)[0, :]
     audio_rs.to(device)
 
     # Load in Whisper model that has been fine-tuned for verbatim speech transcription
-    model = whisper.load_model('/data/aromana/ICASSP23/github/disfluency_detection_from_audio/demo_models/asr', device='cuda')
+    model = whisper.load_model('demo_models/asr', device=device)
     model.to(device)
 
     # Get Whisper output
@@ -49,7 +49,7 @@ def run_language_based(audio_file, text_df, device):
 
     # Initialize Bert model and load in pre-trained weights
     model = BertForTokenClassification.from_pretrained('bert-base-uncased', num_labels=5)
-    model.load_state_dict(torch.load('demo_models/language.pt', map_location='cpu'))
+    model.load_state_dict(torch.load('demo_models/language.pt', map_location='cpu'), strict=False)
     model.config.output_hidden_states = True
     model.to(device)
 
@@ -149,7 +149,6 @@ def run_multimodal(language, acoustic, device):
     return preds
 
 def setup_log(log_file):
-
     # Set up a logger
     logger = logging.getLogger("demo_log")
     logger.setLevel(logging.INFO)
@@ -174,7 +173,6 @@ def setup_log(log_file):
     sys.stderr = logger
 
 if __name__ == '__main__':
-
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--audio_file', type=str, default=None, required=True, help='path to 8k .wav file')
@@ -184,9 +182,9 @@ if __name__ == '__main__':
                         help='modality can be language, acoustic, or multimodal')
 
     args = parser.parse_args()
-
+    
     # Setup log
-    setup_log(args.output_file.replace('.csv', '.log'))
+    # setup_log(args.output_file.replace('.csv', '.log'))
 
     # Get predictions
     text_df = None
@@ -203,4 +201,3 @@ if __name__ == '__main__':
     pred_df['frame_time'] = [round(i * 0.02, 2) for i in range(pred_df.shape[0])]
     pred_df = pred_df.set_index('frame_time')
     pred_df.to_csv(args.output_file)
-

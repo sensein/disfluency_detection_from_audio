@@ -1,0 +1,5 @@
+IPython
+pandas
+gdown
+transformers
+whisper_timestamped

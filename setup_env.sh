@@ -41,6 +41,7 @@ pip install -r requirements.txt
 
 # Check if demo_models exists
 if [ ! -d "demo_models" ]; then
+    echo "Setting up the models..."
     mkdir demo_models && cd demo_models
 
     # Download and setup ASR model

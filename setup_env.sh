@@ -28,14 +28,16 @@ if [ "$OS" == "Darwin" ]; then
     conda install pytorch::pytorch torchvision torchaudio -c pytorch
 elif [ "$OS" == "Linux" ]; then
     # Linux
-    conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
+    # conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
+    pip install torch==2.1.0 torchvision==0.16.0 torchaudio==2.1.0 --index-url https://download.pytorch.org/whl/cu118
+
 else
     echo "Unsupported OS: $OS"
     exit 1
 fi
 
 # Install other requirements
-pip install -r requirements.txt -y
+pip install -r requirements.txt
 
 # Check if demo_models exists
 if [ ! -d "demo_models" ]; then

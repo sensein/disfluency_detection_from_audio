@@ -7,7 +7,7 @@ With the scripts contained in the repo, you can run audio through some pre-train
 
 ## Setup
 1. Make ```setup_env.sh``` executable:
-   ````chmod +x ```setup_env.sh````
+   ````chmod +x setup_env.sh````
 2. Run it with your desired environment name:
    ````./setup_env.sh <myenv> <path_to_conda>````
    You can pick the ```<myenv>``` that you like.
